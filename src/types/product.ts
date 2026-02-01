@@ -8,6 +8,8 @@ export interface Product {
   reviewCount: number;
   variants: ProductVariants;
   bundleEligible?: string[];
+  category?: string;
+  tags?: string[];
 }
 
 export interface ProductVariants {

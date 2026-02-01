@@ -12,5 +12,6 @@ export interface PromoCode {
   discountType: "percentage" | "fixed";
   discountValue: number;
   minPurchase?: number;
+  maxDiscount?: number;
   validUntil: string;
 }
