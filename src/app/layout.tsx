@@ -1,3 +1,4 @@
+import Header from "@/components/shared/Header";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -29,7 +30,8 @@ export default function RootLayout({ children }: Readonly<Props>) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Header />
+        <main className="min-h-screen bg-gray-50">{children}</main>
       </body>
     </html>
   );
