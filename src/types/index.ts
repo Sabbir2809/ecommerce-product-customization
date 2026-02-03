@@ -9,8 +9,6 @@ export interface Product {
   variants: ProductVariants;
   bundleEligible?: string[];
   category?: string;
-  popularity?: number;
-  createdAt?: string;
 }
 
 export interface ProductVariants {
@@ -37,7 +35,7 @@ export interface CartItem {
   };
   quantity: number;
   customizations?: Record<string, unknown>;
-  addedAt?: number;
+  configUrl?: string;
 }
 
 export interface PromoCode {
@@ -48,67 +46,31 @@ export interface PromoCode {
   validUntil: string;
 }
 
-export interface SavedItem extends CartItem {
-  savedAt: number;
-}
-
-export interface RecentlyViewedProduct {
-  productId: string;
-  viewedAt: number;
-}
-
-export interface SearchFilters {
-  query: string;
-  priceRange: [number, number];
-  minRating?: number;
-  attributes: Record<string, string[]>;
-  sortBy: "price-asc" | "price-desc" | "newest" | "rating" | "popularity";
-}
-
 export interface CartState {
   items: CartItem[];
-  savedItems: SavedItem[];
-  recentlyViewed: RecentlyViewedProduct[];
-  promoCode: string | null;
+  savedForLater: CartItem[];
+  recentlyViewed: string[];
+  appliedPromo?: PromoCode;
   addItem: (item: CartItem) => void;
-  removeItem: (
-    productId: string,
-    variants: CartItem["selectedVariants"]
-  ) => void;
-  updateQuantity: (
-    productId: string,
-    variants: CartItem["selectedVariants"],
-    quantity: number
-  ) => void;
-  saveForLater: (
-    productId: string,
-    variants: CartItem["selectedVariants"]
-  ) => void;
-  moveToCart: (
-    productId: string,
-    variants: CartItem["selectedVariants"]
-  ) => void;
-  applyPromoCode: (code: string) => void;
-  removePromoCode: () => void;
+  updateQuantity: (productId: string, quantity: number) => void;
+  removeItem: (productId: string) => void;
+  saveForLater: (productId: string) => void;
+  moveToCart: (productId: string) => void;
   addRecentlyViewed: (productId: string) => void;
+  applyPromo: (code: string) => boolean;
+  removePromo: () => void;
   clearCart: () => void;
-  hydrate: (state: Partial<CartState>) => void;
 }
 
-export interface BundleDiscount {
-  productIds: string[];
-  discountPercentage: number;
-  description: string;
-}
-
-export interface PricingBreakdown {
-  subtotal: number;
-  variantModifiers: number;
-  customizationFees: number;
-  quantityDiscount: number;
-  promoDiscount: number;
-  bundleDiscount: number;
-  tax: number;
-  shipping: number;
-  total: number;
+export interface FilterState {
+  priceRange: [number, number];
+  ratings: number[];
+  colors: string[];
+  sizes: string[];
+  materials: string[];
+  searchQuery: string;
+  sortBy: "price-asc" | "price-desc" | "rating" | "newest" | "popular";
+  setFilter: (key: keyof FilterState, value: unknown) => void;
+  resetFilters: () => void;
+  getFilteredProducts: () => Product[];
 }
