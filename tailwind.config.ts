@@ -9,23 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)"],
-        display: ["var(--font-display)"],
+        display: ["'Sora'", "sans-serif"],
+        body: ["'Outfit'", "sans-serif"],
       },
       colors: {
         primary: {
-          50: "#fef2f2",
-          100: "#fee2e2",
-          200: "#fecaca",
-          300: "#fca5a5",
-          400: "#f87171",
-          500: "#F05022",
-          600: "#dc2626",
-          700: "#b91c1c",
-          800: "#991b1b",
-          900: "#7f1d1d",
+          50: "#eef2ff",
+          100: "#e0e7ff",
+          200: "#c7d2fe",
+          400: "#818cf8",
+          500: "#6366f1",
+          600: "#4f46e5",
+          700: "#4338ca",
+          DEFAULT: "#6366f1",
         },
-        secondary: {
+        slate: {
           50: "#f8fafc",
           100: "#f1f5f9",
           200: "#e2e8f0",
@@ -37,27 +35,40 @@ const config: Config = {
           800: "#1e293b",
           900: "#0f172a",
         },
+        rose: { 400: "#fb7185", 500: "#f43f5e" },
+        emerald: { 500: "#10b981" },
+        amber: { 500: "#f59e0b" },
       },
       animation: {
-        "fade-in": "fadeIn 0.5s ease-in",
-        "slide-up": "slideUp 0.5s ease-out",
-        "slide-down": "slideDown 0.3s ease-out",
+        "fade-up": "fadeUp .45s cubic-bezier(.4,0,.2,1) both",
+        "fade-in": "fadeIn .35s ease both",
+        "slide-l": "slideL .3s cubic-bezier(.4,0,.2,1) both",
+        "pulse-sm": "pulseSm 2s infinite",
+        shimmer: "shimmer 1.4s infinite linear",
       },
       keyframes: {
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
+        fadeUp: {
+          from: { opacity: "0", transform: "translateY(18px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
-        slideUp: {
-          "0%": { transform: "translateY(20px)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
+        fadeIn: { from: { opacity: "0" }, to: { opacity: "1" } },
+        slideL: {
+          from: { transform: "translateX(-100%)", opacity: "0" },
+          to: { transform: "translateX(0)", opacity: "1" },
         },
-        slideDown: {
-          "0%": { transform: "translateY(-10px)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
+        pulseSm: { "0%,100%": { opacity: "1" }, "50%": { opacity: ".35" } },
+        shimmer: {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
         },
+      },
+      boxShadow: {
+        card: "0 2px 14px rgba(15,23,42,.06)",
+        "card-lg": "0 8px 30px rgba(15,23,42,.12)",
+        input: "0 0 0 3px rgba(99,102,241,.2)",
       },
     },
   },
+  plugins: [],
 };
 export default config;
